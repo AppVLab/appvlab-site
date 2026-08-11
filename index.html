@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AppVLab — Mobile apps, privacy-first</title>
+    <meta
+      name="description"
+      content="AppVLab publishes useful, privacy-first mobile apps. Discover PrivaCoach — local-first health & sport coaching."
+    />
+    <link rel="icon" href="assets/logo.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #070a0e;
+        --bg-elev: #10161d;
+        --ink: #f3f7fb;
+        --muted: #9eb0c2;
+        --accent: #5eead4;
+        --accent-2: #2dd4bf;
+        --line: rgba(243, 247, 251, 0.12);
+        --card: rgba(255, 255, 255, 0.035);
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+        --radius: 1.35rem;
+        --max: 1120px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "DM Sans", system-ui, sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        line-height: 1.5;
+        text-rendering: optimizeLegibility;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: var(--accent);
+        text-underline-offset: 0.16em;
+      }
+
+      a:hover {
+        color: #a7f3e8;
+      }
+
+      .shell {
+        width: min(var(--max), calc(100% - 2.5rem));
+        margin: 0 auto;
+      }
+
+      /* —— Top bar —— */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(16px) saturate(1.2);
+        background: rgba(7, 10, 14, 0.72);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        min-height: 4.5rem;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--ink);
+      }
+
+      .brand img {
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 0.7rem;
+        object-fit: cover;
+        background: #0d141c;
+        box-shadow:
+          0 0 0 1px rgba(94, 234, 212, 0.55),
+          0 0 24px rgba(94, 234, 212, 0.18);
+      }
+
+      .top-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.92rem;
+      }
+
+      .nav-links a:hover {
+        color: var(--ink);
+      }
+
+      .lang {
+        display: inline-flex;
+        padding: 0.2rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .lang button {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        font: inherit;
+        font-weight: 700;
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+        padding: 0.38rem 0.65rem;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+
+      .lang button[aria-pressed="true"] {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #042f2e;
+      }
+
+      /* —— Hero —— */
+      .hero {
+        position: relative;
+        min-height: min(78svh, 720px);
+        display: grid;
+        align-items: center;
+        overflow: hidden;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(
+            105deg,
+            rgba(7, 10, 14, 0.92) 0%,
+            rgba(7, 10, 14, 0.78) 42%,
+            rgba(7, 10, 14, 0.35) 70%,
+            rgba(7, 10, 14, 0.55) 100%
+          ),
+          url("assets/hero-bg.png") right center / cover no-repeat;
+        z-index: 0;
+      }
+
+      .hero-grid {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 2.5rem;
+        align-items: center;
+        padding: 3.25rem 0 3.5rem;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        margin: 0 0 1rem;
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: Syne, "DM Sans", sans-serif;
+        font-weight: 800;
+        font-size: clamp(2.6rem, 6.2vw, 4.6rem);
+        line-height: 0.98;
+        letter-spacing: -0.045em;
+        max-width: 11ch;
+      }
+
+      .hero-lead {
+        margin: 1.15rem 0 0;
+        color: var(--muted);
+        font-size: 1.08rem;
+        max-width: 34rem;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        margin-top: 1.6rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.85rem;
+        padding: 0.65rem 1.15rem;
+        border-radius: 999px;
+        font-weight: 700;
+        text-decoration: none;
+        border: 1px solid transparent;
+        transition: transform 0.18s ease, background 0.18s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #042f2e;
+        box-shadow: 0 12px 32px rgba(94, 234, 212, 0.22);
+      }
+
+      .btn-ghost {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: var(--line);
+        color: var(--ink);
+      }
+
+      .hero-panel {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(160deg, rgba(94, 234, 212, 0.1), transparent 50%),
+          rgba(16, 22, 29, 0.78);
+        box-shadow: var(--shadow);
+        padding: 1.35rem 1.4rem 1.45rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .hero-panel .logo-mark {
+        width: 3.75rem;
+        height: 3.75rem;
+        border-radius: 0.9rem;
+        object-fit: cover;
+        margin-bottom: 1rem;
+        box-shadow:
+          0 0 0 1px rgba(94, 234, 212, 0.45),
+          0 0 28px rgba(94, 234, 212, 0.16);
+      }
+
+      .hero-panel h2 {
+        margin: 0;
+        font-family: Syne, "DM Sans", sans-serif;
+        font-size: 1.35rem;
+        letter-spacing: -0.02em;
+      }
+
+      .hero-panel p {
+        margin: 0.55rem 0 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .stat-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.65rem;
+        margin-top: 1.2rem;
+      }
+
+      .stat {
+        padding: 0.7rem 0.65rem;
+        border-radius: 0.9rem;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .stat b {
+        display: block;
+        font-family: Syne, "DM Sans", sans-serif;
+        font-size: 0.98rem;
+        letter-spacing: -0.02em;
+      }
+
+      .stat span {
+        display: block;
+        margin-top: 0.2rem;
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+
+      /* —— Sections —— */
+      main {
+        padding: 0 0 3.5rem;
+      }
+
+      section {
+        padding: 3.25rem 0 0;
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 1rem;
+        margin-bottom: 1.35rem;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-family: Syne, "DM Sans", sans-serif;
+        font-size: clamp(1.55rem, 3vw, 2rem);
+        letter-spacing: -0.03em;
+      }
+
+      .section-head p {
+        margin: 0;
+        color: var(--muted);
+        max-width: 28rem;
+        text-align: right;
+        font-size: 0.95rem;
+      }
+
+      .app-card {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(135deg, rgba(94, 234, 212, 0.07), transparent 40%),
+          var(--card);
+      }
+
+      .app-card h3 {
+        margin: 0;
+        font-family: Syne, "DM Sans", sans-serif;
+        font-size: 1.7rem;
+        letter-spacing: -0.03em;
+      }
+
+      .app-card .tagline {
+        margin: 0.35rem 0 0.85rem;
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+
+      .app-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        margin: 1rem 0 1.2rem;
+      }
+
+      .chip {
+        padding: 0.28rem 0.65rem;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      .side-box {
+        display: grid;
+        align-content: start;
+        gap: 0.85rem;
+        padding: 1.1rem;
+        border-radius: 1.1rem;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .side-box h4 {
+        margin: 0;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .side-box a.store {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 0.8rem 0.9rem;
+        border-radius: 0.85rem;
+        border: 1px solid var(--line);
+        background: rgba(7, 10, 14, 0.45);
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .side-box a.store:hover {
+        border-color: rgba(94, 234, 212, 0.45);
+        color: var(--ink);
+      }
+
+      .side-box a.store small {
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 1.25rem;
+      }
+
+      .contact-card,
+      .about-card {
+        padding: 1.35rem 1.4rem;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        background: var(--card);
+      }
+
+      .contact-card strong {
+        display: block;
+        margin-bottom: 0.35rem;
+        font-size: 1.02rem;
+      }
+
+      .about-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      footer {
+        margin-top: 3rem;
+        padding-top: 1.35rem;
+        border-top: 1px solid var(--line);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.85rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      footer .legal {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid,
+        .app-card,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .section-head {
+          flex-direction: column;
+          align-items: start;
+        }
+
+        .section-head p {
+          text-align: left;
+        }
+
+        .hero {
+          min-height: auto;
+        }
+
+        .hero::before {
+          background:
+            linear-gradient(
+              180deg,
+              rgba(7, 10, 14, 0.88) 0%,
+              rgba(7, 10, 14, 0.92) 100%
+            ),
+            url("assets/hero-bg.png") center / cover no-repeat;
+        }
+
+        .hero h1 {
+          max-width: none;
+        }
+
+        .nav-links {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="#accueil" aria-label="AppVLab">
+          <img src="assets/logo.png" alt="AppVLab" width="44" height="44" />
+        </a>
+        <div class="top-actions">
+          <nav class="nav-links" aria-label="Primary">
+            <a href="#apps" data-i18n="nav_apps">Apps</a>
+            <a href="#contact" data-i18n="nav_contact">Contact</a>
+          </nav>
+          <div class="lang" role="group" aria-label="Language">
+            <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+            <button type="button" data-lang="en" aria-pressed="false">EN</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero" id="accueil">
+      <div class="shell hero-grid">
+        <div>
+          <p class="eyebrow" data-i18n="eyebrow">Mobile publisher</p>
+          <h1 data-i18n="hero_title">Apps that stay useful — and private.</h1>
+          <p class="hero-lead" data-i18n="hero_lead">
+            AppVLab builds mobile products with a privacy-first mindset.
+            Simple by design. Local-first when it matters.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#apps" data-i18n="cta_discover"
+              >Discover PrivaCoach</a
+            >
+            <a class="btn btn-ghost" href="#contact" data-i18n="cta_contact"
+              >Contact us</a
+            >
+          </div>
+        </div>
+        <aside class="hero-panel" aria-label="AppVLab">
+          <img
+            class="logo-mark"
+            src="assets/logo.png"
+            alt="AppVLab"
+            width="54"
+            height="54"
+          />
+          <h2 data-i18n="panel_title">AppVLab</h2>
+          <p data-i18n="panel_text">
+            Independent studio publishing consumer apps for iOS, watchOS and
+            Android.
+          </p>
+          <div class="stat-row">
+            <div class="stat">
+              <b data-i18n="stat1_value">01</b>
+              <span data-i18n="stat1_label">Flagship app</span>
+            </div>
+            <div class="stat">
+              <b data-i18n="stat2_value">3</b>
+              <span data-i18n="stat2_label">Platforms</span>
+            </div>
+            <div class="stat">
+              <b data-i18n="stat3_value">EU</b>
+              <span data-i18n="stat3_label">Based</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <main class="shell">
+      <section id="apps">
+        <div class="section-head">
+          <h2 data-i18n="apps_title">Applications</h2>
+          <p data-i18n="apps_lead">
+            Products designed for daily use — without unnecessary complexity.
+          </p>
+        </div>
+        <article class="app-card">
+          <div>
+            <h3>PrivaCoach</h3>
+            <p class="tagline" data-i18n="pc_tagline">
+              Private health &amp; sport coaching, local-first.
+            </p>
+            <p data-i18n="pc_body">
+              PrivaCoach helps with training, habits and recovery. Your data
+              stays on-device whenever possible; cloud remains optional.
+            </p>
+            <div class="chips">
+              <span class="chip">iOS</span>
+              <span class="chip">watchOS</span>
+              <span class="chip">Android</span>
+              <span class="chip" data-i18n="chip_privacy">Privacy-first</span>
+            </div>
+            <div class="cta-row">
+              <a
+                class="btn btn-ghost"
+                href="https://privacy.appvlab.com/privacy/"
+                data-i18n="link_privacy"
+                >Privacy policy</a
+              >
+              <a
+                class="btn btn-ghost"
+                href="https://privacy.appvlab.com/terms/"
+                data-i18n="link_terms"
+                >Terms of use</a
+              >
+            </div>
+          </div>
+          <div class="side-box">
+            <h4 data-i18n="stores_title">Get the app</h4>
+            <a
+              class="store"
+              href="https://play.google.com/store/apps/details?id=com.privacoach.app"
+            >
+              <span>Google Play</span>
+              <small>Android</small>
+            </a>
+            <a class="store" href="#contact">
+              <span>App Store</span>
+              <small data-i18n="store_ios_soon">Coming soon</small>
+            </a>
+          </div>
+        </article>
+      </section>
+
+      <section id="contact">
+        <div class="section-head">
+          <h2 data-i18n="contact_title">Contact</h2>
+          <p data-i18n="contact_lead">
+            Questions about AppVLab or PrivaCoach? Reach out anytime.
+          </p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <strong data-i18n="contact_email_label">Email</strong>
+            <a href="mailto:admin@appvlab.com">admin@appvlab.com</a>
+            <p
+              style="margin: 0.9rem 0 0; color: var(--muted)"
+              data-i18n="contact_hint"
+            >
+              For PrivaCoach or privacy requests, put “PrivaCoach” in the subject
+              line.
+            </p>
+          </div>
+          <div class="about-card">
+            <p data-i18n="about_text">
+              AppVLab is the publisher behind PrivaCoach. We focus on useful
+              mobile software with a clear privacy posture — not growth at any
+              cost.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div data-i18n="footer_copy">AppVLab — mobile app publisher</div>
+        <div class="legal">
+          <a href="https://privacy.appvlab.com/privacy/" data-i18n="link_privacy"
+            >Privacy policy</a
+          >
+          <a href="https://privacy.appvlab.com/terms/" data-i18n="link_terms"
+            >Terms of use</a
+          >
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      const STRINGS = {
+        fr: {
+          nav_apps: "Apps",
+          nav_contact: "Contact",
+          eyebrow: "Éditeur mobile",
+          hero_title: "Des apps utiles — et privées.",
+          hero_lead:
+            "AppVLab conçoit des applications mobiles avec une approche privacy-first. Simples par design. Local-first quand c’est important.",
+          cta_discover: "Découvrir PrivaCoach",
+          cta_contact: "Nous contacter",
+          panel_title: "AppVLab",
+          panel_text:
+            "Studio indépendant qui publie des apps grand public pour iOS, watchOS et Android.",
+          stat1_value: "01",
+          stat1_label: "App phare",
+          stat2_value: "3",
+          stat2_label: "Plateformes",
+          stat3_value: "UE",
+          stat3_label: "Basé en",
+          apps_title: "Applications",
+          apps_lead:
+            "Des produits pensés pour le quotidien — sans complexité inutile.",
+          pc_tagline: "Coach santé & sport privé, local-first.",
+          pc_body:
+            "PrivaCoach t’accompagne sur l’entraînement, les habitudes et la récupération. Tes données restent sur l’appareil autant que possible ; le cloud reste optionnel.",
+          chip_privacy: "Privacy-first",
+          link_privacy: "Confidentialité",
+          link_terms: "CGU",
+          stores_title: "Télécharger",
+          store_ios_soon: "Bientôt",
+          contact_title: "Contact",
+          contact_lead:
+            "Une question sur AppVLab ou PrivaCoach ? Écris-nous.",
+          contact_email_label: "Email",
+          contact_hint:
+            "Pour PrivaCoach ou la confidentialité, indique « PrivaCoach » dans l’objet.",
+          about_text:
+            "AppVLab est l’éditeur de PrivaCoach. Nous construisons des logiciels mobiles utiles, avec une posture claire sur la vie privée — pas la croissance à tout prix.",
+          footer_copy: "AppVLab — éditeur d’applications mobiles",
+          doc_title: "AppVLab — Applications mobiles privacy-first",
+        },
+        en: {
+          nav_apps: "Apps",
+          nav_contact: "Contact",
+          eyebrow: "Mobile publisher",
+          hero_title: "Apps that stay useful — and private.",
+          hero_lead:
+            "AppVLab builds mobile products with a privacy-first mindset. Simple by design. Local-first when it matters.",
+          cta_discover: "Discover PrivaCoach",
+          cta_contact: "Contact us",
+          panel_title: "AppVLab",
+          panel_text:
+            "Independent studio publishing consumer apps for iOS, watchOS and Android.",
+          stat1_value: "01",
+          stat1_label: "Flagship app",
+          stat2_value: "3",
+          stat2_label: "Platforms",
+          stat3_value: "EU",
+          stat3_label: "Based",
+          apps_title: "Applications",
+          apps_lead:
+            "Products designed for daily use — without unnecessary complexity.",
+          pc_tagline: "Private health & sport coaching, local-first.",
+          pc_body:
+            "PrivaCoach helps with training, habits and recovery. Your data stays on-device whenever possible; cloud remains optional.",
+          chip_privacy: "Privacy-first",
+          link_privacy: "Privacy policy",
+          link_terms: "Terms of use",
+          stores_title: "Get the app",
+          store_ios_soon: "Coming soon",
+          contact_title: "Contact",
+          contact_lead:
+            "Questions about AppVLab or PrivaCoach? Reach out anytime.",
+          contact_email_label: "Email",
+          contact_hint:
+            "For PrivaCoach or privacy requests, put “PrivaCoach” in the subject line.",
+          about_text:
+            "AppVLab is the publisher behind PrivaCoach. We focus on useful mobile software with a clear privacy posture — not growth at any cost.",
+          footer_copy: "AppVLab — mobile app publisher",
+          doc_title: "AppVLab — Privacy-first mobile apps",
+        },
+      };
+
+      function applyLang(lang) {
+        const dict = STRINGS[lang] || STRINGS.en;
+        document.documentElement.lang = lang;
+        document.title = dict.doc_title;
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (dict[key] != null) {
+            el.textContent = dict[key];
+          }
+        });
+        document.querySelectorAll(".lang button").forEach((btn) => {
+          btn.setAttribute(
+            "aria-pressed",
+            btn.getAttribute("data-lang") === lang ? "true" : "false",
+          );
+        });
+        try {
+          localStorage.setItem("appvlab_lang", lang);
+        } catch (_) {}
+      }
+
+      function initialLang() {
+        try {
+          const saved = localStorage.getItem("appvlab_lang");
+          if (saved === "fr" || saved === "en") return saved;
+        } catch (_) {}
+        const nav = (navigator.language || "en").toLowerCase();
+        return nav.startsWith("fr") ? "fr" : "en";
+      }
+
+      document.querySelectorAll(".lang button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          applyLang(btn.getAttribute("data-lang"));
+        });
+      });
+
+      applyLang(initialLang());
+    </script>
+  </body>
+</html>
