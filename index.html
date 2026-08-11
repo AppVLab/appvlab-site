@@ -634,16 +634,13 @@
           </div>
           <div class="side-box">
             <h4 data-i18n="stores_title">Get the app</h4>
-            <a
-              class="store"
-              href="https://play.google.com/store/apps/details?id=com.privacoach.app"
-            >
+            <a class="store" href="#contact">
               <span>Google Play</span>
-              <small>Android</small>
+              <small data-i18n="store_soon">Coming soon</small>
             </a>
             <a class="store" href="#contact">
               <span>App Store</span>
-              <small data-i18n="store_ios_soon">Coming soon</small>
+              <small data-i18n="store_soon">Coming soon</small>
             </a>
           </div>
         </article>
@@ -721,7 +718,7 @@
           link_privacy: "Confidentialité",
           link_terms: "CGU",
           stores_title: "Télécharger",
-          store_ios_soon: "Bientôt",
+          store_soon: "Bientôt",
           contact_title: "Contact",
           contact_lead:
             "Une question sur AppVLab ou PrivaCoach ? Écris-nous.",
@@ -761,7 +758,7 @@
           link_privacy: "Privacy policy",
           link_terms: "Terms of use",
           stores_title: "Get the app",
-          store_ios_soon: "Coming soon",
+          store_soon: "Coming soon",
           contact_title: "Contact",
           contact_lead:
             "Questions about AppVLab or PrivaCoach? Reach out anytime.",
@@ -790,6 +787,13 @@
             "aria-pressed",
             btn.getAttribute("data-lang") === lang ? "true" : "false",
           );
+        });
+        document.querySelectorAll('a[href*="privacy.appvlab.com"]').forEach((a) => {
+          try {
+            const u = new URL(a.getAttribute("href"), location.origin);
+            u.searchParams.set("lang", lang);
+            a.setAttribute("href", u.toString());
+          } catch (_) {}
         });
         try {
           localStorage.setItem("appvlab_lang", lang);
