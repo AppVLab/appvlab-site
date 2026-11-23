@@ -641,8 +641,11 @@ body:not([data-theme="pc"]) .btn-primary {
 }
 
 .pc-hero-grid {
-  max-width: 46rem;
   padding: 2.75rem 0 3.25rem;
+}
+
+.pc-hero-grid > div {
+  max-width: 46rem;
 }
 
 .pc-icon {
@@ -679,8 +682,34 @@ body:not([data-theme="pc"]) .btn-primary {
 }
 
 .also p {
-  margin-top: 0.4rem;
+  margin: 0;
   color: var(--ink);
+}
+
+.points {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.points li {
+  position: relative;
+  padding-left: 1.1rem;
+}
+
+.points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--link);
 }
 
 .mode h3 {
