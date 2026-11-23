@@ -641,10 +641,7 @@ body:not([data-theme="pc"]) .btn-primary {
 }
 
 .pc-hero-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2.25rem;
-  align-items: center;
+  max-width: 46rem;
   padding: 2.75rem 0 3.25rem;
 }
 
@@ -666,26 +663,6 @@ body:not([data-theme="pc"]) .btn-primary {
   margin-top: 0.85rem;
   color: var(--muted);
   font-size: 0.95rem;
-}
-
-.shot {
-  margin: 0;
-  max-width: 24rem;
-  justify-self: center;
-}
-
-.shot img {
-  width: 100%;
-  border-radius: 1.5rem;
-  border: 1px solid var(--line);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), 0 0 60px rgba(124, 77, 255, 0.18);
-}
-
-.shot figcaption {
-  margin-top: 0.8rem;
-  color: var(--muted);
-  font-size: 0.9rem;
-  text-align: center;
 }
 
 .also {
@@ -1010,8 +987,6 @@ body:not([data-theme="pc"]) .btn-primary {
   }
 
   .pc-hero-grid {
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 3rem;
     padding: 4rem 0 4.5rem;
   }
 

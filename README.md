@@ -31,8 +31,6 @@ U+202F before `? ! ;` and inside « ». Keep them when editing.
 
 - `assets/fonts/`: Manrope and M PLUS Rounded 1c (Latin subset, WOFF2), same fonts as the app,
   with their SIL OFL licenses. No external font service.
-- `assets/screens/`: real screenshots of the app (FR and EN). Only add screenshots without
-  debug banner, simulated-entitlement banner or personal data.
 - Only third-party request: GoatCounter (page counts, no cookie, no IP stored).
 
 ## Preview locally
